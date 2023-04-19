@@ -12,17 +12,10 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import StarBorder from '@mui/icons-material/StarBorder';
-import Collapse from '@mui/material/Collapse';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import { routes } from '../routes';
-import { Link } from 'react-router-dom';
+import SidebarButton from '../components/sidebar/SidebarButton';
+import SidebarCollapseButton from '../components/sidebar/SidebarCollapseButton';
+import { Outlet } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -91,7 +84,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-const AdminLayout = ({ children }) => {
+const AdminLayout = () => {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
 
@@ -101,12 +94,6 @@ const AdminLayout = ({ children }) => {
 
     const handleDrawerClose = () => {
         setOpen(false);
-    };
-
-    const [collapse, setCollapse] = useState(true);
-
-    const handleClick = () => {
-        setCollapse(!collapse);
     };
 
     return (
@@ -139,67 +126,18 @@ const AdminLayout = ({ children }) => {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {routes.map((route, index) => (
-                        <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-                            <ListItemButton
-                                sx={{
-                                    minHeight: 48,
-                                    justifyContent: open ? 'initial' : 'center',
-                                    px: 2.5,
-                                }}
-                                component={Link}
-                                to={route.path}
-                            >
-                                <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : 'auto',
-                                        justifyContent: 'center',
-                                    }}
-                                >
-                                    {route.icon}
-                                </ListItemIcon>
-                                <ListItemText primary={route.name} sx={{ opacity: open ? 1 : 0 }} />
-                            </ListItemButton>
-                        </ListItem>
-
-                    ))}
-                    <ListItem disablePadding sx={{ display: 'block' }}>
-                        <ListItemButton onClick={handleClick} sx={{
-                            minHeight: 48,
-                            justifyContent: open ? 'initial' : 'center',
-                            px: 2.5,
-                        }}>
-                            <ListItemIcon sx={{
-                                minWidth: 0,
-                                mr: open ? 3 : 'auto',
-                                justifyContent: 'center',
-                            }}>
-                                <InboxIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Inbox" sx={{ opacity: open ? 1 : 0 }} />
-                            {open ? collapse ? <ExpandLess /> : <ExpandMore /> : null}
-                        </ListItemButton>
-                        <Collapse in={collapse} timeout="auto" unmountOnExit>
-                            <List component="div" disablePadding>
-                                <ListItemButton sx={{ pl: 4 }}>
-                                    <ListItemIcon sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : 'auto',
-                                        justifyContent: 'center',
-                                    }}>
-                                        <StarBorder />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Starred" sx={{ opacity: open ? 1 : 0 }} />
-                                </ListItemButton>
-                            </List>
-                        </Collapse>
-                    </ListItem>
+                    {routes.map((route, index) => {
+                        if (route.collapse) {
+                            return route.views.map((view, index) => <SidebarCollapseButton key={index} route={route} view={view} open={open} />)
+                        } else {
+                            return route.invisible ? null : <SidebarButton key={index} route={route} open={open} />
+                        }
+                    })}
                 </List>
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />
-                {children}
+                <Outlet />
             </Box>
         </Box>
     );
