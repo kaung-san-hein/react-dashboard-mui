@@ -1,7 +1,8 @@
 import React from "react";
+import Typography from "@mui/material/Typography";
 
 const Regions = () => {
-    return <h1>Regions</h1>
+    return <Typography>Regions</Typography>
 }
 
 export default Regions

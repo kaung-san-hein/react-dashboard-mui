@@ -1,7 +1,8 @@
 import React from "react";
+import Typography from "@mui/material/Typography";
 
 const Patients = () => {
-    return <h1>Patients</h1>
+    return <Typography>Patients</Typography>
 }
 
 export default Patients

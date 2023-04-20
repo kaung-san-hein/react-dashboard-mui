@@ -1,7 +1,8 @@
 import React from "react";
+import Typography from "@mui/material/Typography";
 
 const Report = () => {
-    return <h1>Report</h1>
+    return <Typography>Report</Typography>
 }
 
 export default Report
