@@ -1,7 +1,7 @@
 import React from 'react'
 import TextField from '@mui/material/TextField'
 
-export default function CustomTextField({ label, value, onChange }) {
+export default function CustomTextField({ label, value, onChange, ...props }) {
     return (
         <TextField
             type='text'
@@ -15,6 +15,7 @@ export default function CustomTextField({ label, value, onChange }) {
             sx={{
                 fieldset: { borderColor: "var(--primary-color)" },
             }}
+            {...props}
         />
     )
 }

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import PhoneNumberTextField from "../components/input/PhoneNumberTextField";
-import PasswordTextField from "../components/input/PasswordTextField";
+import { PhoneNumberTextField } from "../components/input/withPhoneNumberTextField";
+import { PasswordTextField } from "../components/input/withPasswordTextField";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 
@@ -39,6 +39,7 @@ const Login = () => {
                 </Typography>
 
                 <PhoneNumberTextField
+                    label="Phone Number"
                     value={phoneNumber}
                     onChange={(event) => setPhoneNumber(event.target.value)}
                 />

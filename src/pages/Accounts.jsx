@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
-import Pagination from "@mui/material/Pagination";
+import TableRow from '@mui/material/TableRow'
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -16,46 +7,24 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import CustomTextField from "../components/input/CustomTextField";
 import Grid from '@mui/material/Grid';
 import SearchIcon from '@mui/icons-material/Search';
+import CustomTable, { StyledTableCell, StyledTableRow } from "../components/table/CustomTable";
+import { accounts } from "../mock/accounts";
+import CustomPagination from "../components/pagination/CustomPagination";
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: "var(--primary-color)",
-        color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-        fontSize: 14,
-    },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    "&:nth-of-type(odd)": {
-        backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    "&:last-child td, &:last-child th": {
-        border: 0,
-    },
-}));
-
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
-const Accounts = () => {
+const AccountList = () => {
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
 
     return (
         <Box>
-            <Button variant="outlined" startIcon={<ArrowBackIosNewIcon />}>
+            <Button
+                variant="outlined"
+                startIcon={<ArrowBackIosNewIcon />}
+                sx={{
+                    borderColor: "var(--primary-color)",
+                    color: "var(--primary-color)",
+                }}
+            >
                 Back
             </Button>
             <Typography
@@ -90,43 +59,51 @@ const Accounts = () => {
                         <Button
                             variant="contained"
                             endIcon={<SearchIcon />}
+                            sx={{
+                                bgcolor: "var(--primary-color)",
+                            }}
                         >
                             Search
                         </Button>
                     </Grid>
                 </Grid>
             </Box>
-            <TableContainer component={Paper}>
-                <Table stickyHeader sx={{ minWidth: 700 }}>
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-                            <StyledTableCell align="right">Calories</StyledTableCell>
-                            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-                            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-                            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows.map((row) => (
-                            <StyledTableRow key={row.name}>
-                                <StyledTableCell component="th" scope="row">
-                                    {row.name}
-                                </StyledTableCell>
-                                <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                                <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                                <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                                <StyledTableCell align="right">{row.protein}</StyledTableCell>
-                            </StyledTableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <Stack alignItems="end" mt={3}>
-                <Pagination count={10} color="primary" />
-            </Stack>
+            <CustomTable
+                header={
+                    <TableRow>
+                        <StyledTableCell>ID</StyledTableCell>
+                        <StyledTableCell>Name</StyledTableCell>
+                        <StyledTableCell>Email</StyledTableCell>
+                        <StyledTableCell>Plain Password</StyledTableCell>
+                        <StyledTableCell>Role</StyledTableCell>
+                        <StyledTableCell>Township</StyledTableCell>
+                        <StyledTableCell>Project</StyledTableCell>
+                        <StyledTableCell>Action</StyledTableCell>
+                    </TableRow>
+                }
+                body={
+                    accounts.map((row) => (
+                        <StyledTableRow key={row.id}>
+                            <StyledTableCell component="th" scope="row">
+                                {row.id}
+                            </StyledTableCell>
+                            <StyledTableCell>{row.name}</StyledTableCell>
+                            <StyledTableCell>{row.email}</StyledTableCell>
+                            <StyledTableCell>{row.plain_password}</StyledTableCell>
+                            <StyledTableCell>{row.role}</StyledTableCell>
+                            <StyledTableCell>{row.township}</StyledTableCell>
+                            <StyledTableCell>{row.project}</StyledTableCell>
+                            <StyledTableCell>
+                                <Button variant="contained" color="info" sx={{ marginRight: '3px' }}>Update</Button>
+                                <Button variant="contained" color="error">Delete</Button>
+                            </StyledTableCell>
+                        </StyledTableRow>
+                    ))
+                }
+            />
+            <CustomPagination />
         </Box>
     );
 };
 
-export default Accounts;
+export default AccountList;
