@@ -42,11 +42,13 @@ const Login = () => {
                     label="Phone Number"
                     value={phoneNumber}
                     onChange={(event) => setPhoneNumber(event.target.value)}
+                    margin="normal"
                 />
                 <PasswordTextField
                     label="Password"
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
+                    margin="normal"
                 />
                 <Button
                     fullWidth

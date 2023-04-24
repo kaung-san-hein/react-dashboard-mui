@@ -9,7 +9,6 @@ export default function CustomTextField({ label, value, onChange, ...props }) {
             color="info"
             size="small"
             fullWidth
-            margin="normal"
             value={value}
             onChange={onChange}
             sx={{
