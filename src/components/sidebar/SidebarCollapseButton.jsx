@@ -8,6 +8,8 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import CustomSidebarIcon from "./CustomSidebarIcon";
 
 const SidebarCollapseButton = ({ route, view, open, activeRoute }) => {
   const { layout, path, icon, name } = view;
@@ -35,7 +37,7 @@ const SidebarCollapseButton = ({ route, view, open, activeRoute }) => {
             color: "var(--primary-color)",
           }}
         >
-          {route.icon}
+          <CustomSidebarIcon icon={route.icon} />
         </ListItemIcon>
         <ListItemText primary={route.name} sx={{ opacity: open ? 1 : 0 }} />
         {open ? (
@@ -44,12 +46,14 @@ const SidebarCollapseButton = ({ route, view, open, activeRoute }) => {
               sx={{
                 color: "var(--primary-color)",
               }}
+              fontSize="small"
             />
           ) : (
             <ExpandMore
               sx={{
                 color: "var(--primary-color)",
               }}
+              fontSize="small"
             />
           )
         ) : null}
@@ -70,7 +74,7 @@ const SidebarCollapseButton = ({ route, view, open, activeRoute }) => {
                 color: "var(--primary-color)",
               }}
             >
-              {icon}
+              <CustomSidebarIcon icon={icon} />
             </ListItemIcon>
             <ListItemText primary={name} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
@@ -78,6 +82,21 @@ const SidebarCollapseButton = ({ route, view, open, activeRoute }) => {
       </Collapse>
     </ListItem>
   );
+};
+
+SidebarCollapseButton.propTypes = {
+  route: PropTypes.shape({
+    icon: PropTypes.object.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  view: PropTypes.shape({
+    layout: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
+    icon: PropTypes.object.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  open: PropTypes.bool.isRequired,
+  activeRoute: PropTypes.bool.isRequired,
 };
 
 export default SidebarCollapseButton;

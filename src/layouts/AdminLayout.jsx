@@ -17,6 +17,7 @@ import SidebarButton from "../components/sidebar/SidebarButton";
 import SidebarCollapseButton from "../components/sidebar/SidebarCollapseButton";
 import { Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import CustomAvatar from "../components/appbar/CustomAvatar";
 
 const drawerWidth = 240;
 
@@ -129,6 +130,7 @@ const AdminLayout = () => {
           <Typography variant="h6" noWrap component="div">
             React Dashboard MUI
           </Typography>
+          <CustomAvatar />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import CloseIcon from "@mui/icons-material/Close";
+import PropTypes from 'prop-types';
 
 const style = {
   position: "absolute",
@@ -45,5 +46,12 @@ const CustomModal = ({ isOpen, onClick, title, children }) => {
     </Modal>
   );
 };
+
+CustomModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+}
 
 export default CustomModal;

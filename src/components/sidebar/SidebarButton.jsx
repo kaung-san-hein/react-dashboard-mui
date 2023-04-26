@@ -3,6 +3,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import CustomSidebarIcon from "./CustomSidebarIcon";
 
 const SidebarButton = ({ route, open, activeRoute }) => {
   const { layout, path, icon, name } = route;
@@ -27,12 +29,23 @@ const SidebarButton = ({ route, open, activeRoute }) => {
             color: "var(--primary-color)",
           }}
         >
-          {icon}
+          <CustomSidebarIcon icon={icon} />
         </ListItemIcon>
         <ListItemText primary={name} sx={{ opacity: open ? 1 : 0 }} />
       </ListItemButton>
     </ListItem>
   );
 };
+
+SidebarButton.propTypes = {
+  route: PropTypes.shape({
+    layout: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
+    icon: PropTypes.object.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  open: PropTypes.bool.isRequired,
+  activeRoute: PropTypes.bool.isRequired,
+}
 
 export default SidebarButton;

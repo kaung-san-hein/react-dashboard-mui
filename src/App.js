@@ -5,27 +5,12 @@ import AuthLayout from "./layouts/AuthLayout";
 import { routes } from "./routes";
 
 const App = () => {
-  const getAuthRoutes = (routes) => {
+  const getRoutes = (routes, layout) => {
     return routes.map((prop, key) => {
       if (prop.collapse) {
-        return getAuthRoutes(prop.views)
+        return getRoutes(prop.views, layout)
       }
-      if (prop.layout === '/auth') {
-        return (
-          <Route key={key} element={prop.component} path={prop.layout + prop.path} />
-        )
-      } else {
-        return null
-      }
-    })
-  }
-
-  const getAdminRoutes = (routes) => {
-    return routes.map((prop, key) => {
-      if (prop.collapse) {
-        return getAdminRoutes(prop.views)
-      }
-      if (prop.layout === '/admin') {
+      if (prop.layout === layout) {
         return (
           <Route key={key} element={prop.component} path={prop.layout + prop.path} />
         )
@@ -39,11 +24,11 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/admin" element={<AdminLayout />}>
-          {getAdminRoutes(routes)}
+          {getRoutes(routes, '/admin')}
           <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
         </Route>
         <Route path="/auth" element={<AuthLayout />}>
-          {getAuthRoutes(routes)}
+          {getRoutes(routes, '/auth')}
           <Route path="/auth" element={<Navigate to="/auth/login" />} />
         </Route>
         <Route path="*" element={<Navigate to="/auth/login" />} />

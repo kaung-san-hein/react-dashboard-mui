@@ -64,22 +64,23 @@ const AccountList = () => {
                 </Typography>
                 <Box sx={{ flexGrow: 1, mb: 2 }}>
                     <Grid alignItems="center" container spacing={2}>
-                        <Grid item xs={12} md={4}>
+                        <Grid item xs={12} md={3}>
                             <CustomTextField
                                 label="Enter Email"
                                 value={email}
                                 onChange={(event) => setEmail(event.target.value)}
                             />
                         </Grid>
-                        <Grid item xs={12} md={4}>
+                        <Grid item xs={12} md={3}>
                             <CustomSelectBox
                                 label="Role"
                                 value={role}
                                 onChange={(event) => setRole(event.target.value)}
                                 options={options}
+                                onClear={() => setRole("")}
                             />
                         </Grid>
-                        <Grid item xs={12} md={2}>
+                        <Grid item xs={12} md={3}>
                             <Button
                                 variant="contained"
                                 endIcon={<SearchIcon />}
@@ -91,7 +92,7 @@ const AccountList = () => {
                                 Search
                             </Button>
                         </Grid>
-                        <Grid item xs={12} md={2}>
+                        <Grid item xs={12} md={3}>
                             <Button
                                 variant="contained"
                                 endIcon={<AddIcon />}
@@ -152,9 +153,10 @@ const AccountList = () => {
                     <Grid item xs={12} md={6}>
                         <CustomSelectBox
                             label="Select Role"
-                            value={role}
+                            value={data.role}
                             onChange={(event) => setData({ ...data, role: event.target.value })}
                             options={options}
+                            onClear={() => setData({ ...data, role: "" })}
                         />
                     </Grid>
                 </Grid>
