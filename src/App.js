@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import AdminLayout from "./layouts/AdminLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import { routes } from "./routes";
+import { NotificationContainer } from "react-notifications";
 
 const App = () => {
   const getRoutes = (routes, layout) => {
@@ -21,19 +22,22 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/admin" element={<AdminLayout />}>
-          {getRoutes(routes, '/admin')}
-          <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
-        </Route>
-        <Route path="/auth" element={<AuthLayout />}>
-          {getRoutes(routes, '/auth')}
-          <Route path="/auth" element={<Navigate to="/auth/login" />} />
-        </Route>
-        <Route path="*" element={<Navigate to="/auth/login" />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/admin" element={<AdminLayout />}>
+            {getRoutes(routes, '/admin')}
+            <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
+          </Route>
+          <Route path="/auth" element={<AuthLayout />}>
+            {getRoutes(routes, '/auth')}
+            <Route path="/auth" element={<Navigate to="/auth/login" />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/auth/login" />} />
+        </Routes>
+      </BrowserRouter>
+      <NotificationContainer />
+    </>
   )
 }
 

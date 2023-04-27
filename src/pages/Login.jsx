@@ -6,6 +6,7 @@ import { PhoneNumberTextField } from "../components/input/withPhoneNumberTextFie
 import { PasswordTextField } from "../components/input/withPasswordTextField";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import { NotificationManager } from 'react-notifications'
 
 const Login = () => {
     const navigate = useNavigate()
@@ -15,6 +16,7 @@ const Login = () => {
     const handleLogin = () => {
         console.log(phoneNumber, password);
         navigate("/admin")
+        NotificationManager.success('Successfully Logged!')
     };
 
     return (
